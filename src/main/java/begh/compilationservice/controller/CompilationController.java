@@ -2,6 +2,7 @@ package begh.compilationservice.controller;
 
 import begh.compilationservice.model.dto.AmountByCategoryDto;
 import begh.compilationservice.model.dto.DebitCreditByDateAndTypeDto;
+import begh.compilationservice.model.dto.SaldoByDate;
 import begh.compilationservice.model.dto.WeeklyDebitCreditByDateAndTypeDto;
 import begh.compilationservice.service.CompilationService;
 import io.swagger.v3.oas.annotations.Parameter;
@@ -48,14 +49,19 @@ public class CompilationController {
         return ResponseEntity.ok(service.getAccountBalances(type));
     }
 
-//    @GetMapping("/weekly")
-//    Page<WeeklyDebitCreditByDateAndTypeDto> getWeeklyCreditDebitByDateAndType(
-//            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
-//            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate,
-//            @RequestParam("accountType") String accountType,
-//            @PageableDefault(page = 0, size = 100, sort = "voucherDate", direction = Sort.Direction.ASC) @Parameter(hidden = true) Pageable pageable
-//    ){
-//        return service.getWeeklyCreditDebitByDateAndType(startDate, endDate, accountType, pageable);
-//    }
+    @GetMapping("/weekly")
+    ResponseEntity<List<SaldoByDate>> weekly(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+    ){
+        return ResponseEntity.ok(service.weekly(startDate, endDate));
+    }
 
+    @GetMapping("monthly")
+    ResponseEntity<List<SaldoByDate>> getMonthlySaldo(
+            @RequestParam("startDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date startDate,
+            @RequestParam("endDate") @DateTimeFormat(pattern = "yyyy-MM-dd") Date endDate
+    ) {
+        return ResponseEntity.ok(service.monthly(startDate, endDate));
+    }
 }

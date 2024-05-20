@@ -15,7 +15,6 @@ import java.util.List;
 public class Account {
     @Id
     private Integer number;
-
     private String name;
 
     @ManyToOne
