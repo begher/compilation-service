@@ -1,6 +1,7 @@
 package begh.compilationservice.repository;
 
 import begh.compilationservice.model.Voucher;
+import begh.compilationservice.model.dto.AmountByCategoryDto;
 import begh.compilationservice.model.dto.DebitCreditByDateAndTypeDto;
 import begh.compilationservice.model.dto.SaldoByDate;
 import begh.compilationservice.model.dto.WeeklyDebitCreditByDateAndTypeDto;
@@ -41,4 +42,8 @@ public interface VoucherRepository extends JpaRepository<Voucher, UUID> {
 
     @Query(nativeQuery = true, name = "SaldoByDate.findSaldoMonthMapping")
     List<SaldoByDate> findSaldoMonthMapping(Date startDate, Date endDate, Integer accountNumber);
+    @Query(nativeQuery = true, name = "SaldoByDate.findSaldoByCategoryIds")
+    List<AmountByCategoryDto> findSaldoByCategoryIds(List<Integer> typeIds);
+    @Query(nativeQuery = true, name = "SaldoByDate.findSaldoByType")
+    List<AmountByCategoryDto> findSaldoByType(String type);
 }

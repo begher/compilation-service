@@ -18,17 +18,17 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CompilationService {
     private final VoucherRepository repo;
-    private final AccountBalanceRepository balanceRepo;
+    //private final AccountBalanceRepository balanceRepo;
     public Page<DebitCreditByDateAndTypeDto> getCreditDebitByDateAndType(Date startDate, Date endDate, String accountType, Pageable pageable) {
         return repo.findDebitCreditAmountByAccountTypeAndDate(startDate, endDate, accountType, pageable);
     }
 
     public List<AmountByCategoryDto> getAmountByCategory() {
-        return setBalanceToPositiv(balanceRepo.findAmountByCategory(List.of(18, 24, 25, 26)));
+        return setBalanceToPositiv(repo.findSaldoByCategoryIds(List.of(18, 20, 26, 25, 29)));
     }
 
     public List<AmountByCategoryDto> getAccountBalances(String type) {
-        return setBalanceToPositiv(balanceRepo.findBalancesByType(type));
+        return setBalanceToPositiv(repo.findSaldoByType(type));
     }
 
     public List<AmountByCategoryDto> setBalanceToPositiv(List<AmountByCategoryDto> balances) {
